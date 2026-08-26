@@ -123,7 +123,6 @@ tbody tr.clk{cursor:pointer}
 tbody tr.sel td{background:#f6ece0!important;box-shadow:inset 3px 0 0 #b0954f}
 .bd{display:inline-block;padding:2px 9px;border-radius:11px;font-size:11px;font-weight:bold;white-space:nowrap}
 .bd-ok{background:#eef3ea;color:#4a6b3c}
-.bd-rb{background:#fdf3e3;color:#8a6216;border:1px solid #e0c98a}
 .bd-ov{background:#fdf0f1;color:#a32232}
 .bd-dp{background:#f3eef0;color:#6b5560}
 .bd-up{background:#eef1f6;color:#41567a}
@@ -161,18 +160,12 @@ tbody tr.sel td{background:#f6ece0!important;box-shadow:inset 3px 0 0 #b0954f}
   <button id="dls" class="dl gold">스타일 상세 다운로드</button>
   <span class="cnt" id="cnt"></span>
 </div>
-<div class="tools" id="stybar">
-  <label class="f" style="margin:0">되돌리기 후보 상한
-    <input type="range" id="rb" min="11" max="30" step="1" value="15" style="width:150px">
-    <span class="val" id="rbv" style="font-size:15px">15%</span></label>
-  <span class="hint" style="margin:0">인하율이 <b>10%</b>(회사 기준) 초과 ~ 이 값 이하인 스타일 =
-    10% 선까지만 올리면 정판율 대상으로 복귀</span>
-</div>
+
 <div class="tbox">
 <table><thead><tr>
 <th>브랜드</th><th>셀</th><th>입고</th><th>현재<br>정판율</th>
 <th>작년 실제<br>평균할인율</th><th>작년 할인판매<br>깊이</th>
-<th>허용 평균<br>할인율</th><th>작년 대비<br>줄일 폭</th><th>되돌리기<br>후보</th><th>기준<br>출처</th>
+<th>허용 평균<br>할인율</th><th>작년 대비<br>줄일 폭</th><th>기준<br>출처</th>
 </tr></thead><tbody id="tb"></tbody></table>
 </div>
 
@@ -182,7 +175,7 @@ tbody tr.sel td{background:#f6ece0!important;box-shadow:inset 3px 0 0 #b0954f}
 <table><thead><tr>
 <th>아이템(MC)</th><th>셀</th><th>스타일<br>수</th><th>재고<br>수량</th>
 <th>재고액<br>(정판가)</th><th>정판가<br>평균</th><th>현판가<br>평균</th><th>인하율</th>
-<th>소진율</th><th>매총율</th><th>되돌리기<br>후보</th>
+<th>소진율</th><th>매총율</th>
 </tr></thead><tbody id="itemtb"></tbody></table>
 </div>
 <div class="note" id="itemnote"></div>
@@ -288,7 +281,7 @@ function renderTable(){
       <td>${b.ly_rate===null?'―':pc(b.ly_rate)}</td>
       <td>${d0===null||d0===undefined?'―':pc(d0)}</td>
       <td class="big ${r.reach?'':'bad'}">${rngTxt(r)}</td>
-      <td>${gap}</td><td>${rbCell(b)}</td><td class="src">${b.src}</td></tr>`;
+      <td>${gap}</td><td class="src">${b.src}</td></tr>`;
   }).join('');
   if(STY()) [...document.querySelectorAll('#tb tr')].forEach((tr,i)=>{
     tr.classList.add('clk');
@@ -299,46 +292,14 @@ function renderTable(){
   });
 }
 
-let RB=0.15;
-const rb=document.getElementById('rb');
-rb.oninput=()=>{RB=+rb.value/100;document.getElementById('rbv').textContent=rb.value+'%';
-  BAND=null;renderTable();if(SELB)showItems(SELB)};
-
-// 밴드 판정 — 10%는 회사 기준(고정), 상한 RB는 화면에서 조절
+// 구간 판정 — 회사 기준(최판가 대비 10%)만 사용. 임의 임계값은 두지 않음
 function bandOf(dn){
   if(dn<-0.001) return ['인상','bd-up'];
   if(dn<=0.10)  return ['정상','bd-ok'];
-  if(dn<=RB)    return ['되돌리기 후보','bd-rb'];
-  if(dn<=0.25)  return ['초과','bd-ov'];
-  return ['깊은 할인','bd-dp'];
+  return ['할인판매','bd-ov'];
 }
 const STY = ()=>D[SK].styles;
-let BAND=null, SELB=null;
-
-// 브랜드×셀별 되돌리기 후보 집계 (캐시)
-function bandAgg(){
-  if(BAND) return BAND;
-  const S=STY(); BAND={by:{},all:{}};
-  if(!S) return BAND;
-  BAND.mc={};
-  S.rows.forEach(r=>{
-    const dn=1-r[6]/r[5];
-    if(dn<=0.10||dn>RB) return;
-    const br=S.brands[r[0]], cl=S.cells[r[1]];
-    const amt=r[4]*r[5], gap=(Math.round(r[5]*0.9)-r[6])*r[4];
-    [[br+'|'+cl,BAND.by],[br,BAND.all],[r[0]+'|'+r[1]+'|'+r[2],BAND.mc]].forEach(([k,m])=>{
-      const e=m[k]||(m[k]=[0,0,0]); e[0]++; e[1]+=amt; e[2]+=gap;
-    });
-  });
-  return BAND;
-}
-function rbCell(b){
-  const S=STY(); if(!S) return '―';
-  const A=bandAgg();
-  const e=(CF==='전체') ? A.all[b.name] : A.by[b.name+'|'+b.cell];
-  if(!e) return '―';
-  return `<span class="rbn">${e[0]}건</span> <span style="color:#8a8579">${억(e[1])}억</span>`;
-}
+let SELB=null;
 
 let SELM=null;
 
@@ -366,9 +327,7 @@ function showItems(bname){
       <td>${억(so)}억</td><td>${Math.round(po).toLocaleString()}</td>
       <td>${Math.round(pc).toLocaleString()}</td>
       <td class="${dn>0.10?'bad':''}">${pct1(dn)}</td>
-      <td>${sj===null?'―':pct1(sj)}</td><td>${mg===null?'―':pct1(mg)}</td>
-      <td>${(()=>{const e=bandAgg().mc[bi+'|'+ci+'|'+mi];
-        return e?`<span class="rbn">${e[0]}건</span> <span style="color:#8a8579">${억(e[1])}억</span>`:'―'})()}</td></tr>`;
+      <td>${sj===null?'―':pct1(sj)}</td><td>${mg===null?'―':pct1(mg)}</td>      </tr>`;
   }).join('');
   [...document.querySelectorAll('#itemtb tr')].forEach(tr=>{
     tr.classList.add('clk');
@@ -415,7 +374,7 @@ function showStyles(bname, mi, ci){
     `* 정판가·현판가·원가 = 재고액 ÷ 재고수량 역산 (${S.snap})<br>`+
     `* 소진율 = 시즌 누적 소진원가 ÷ (소진원가 + 현재 재고원가) · 발주관리 ${S.ord_asof} 적재분<br>`+
     `* 예상 매총율 = 1 − 원가 ÷ (현판가 ÷ 1.1) — 지금 현판가로 팔았을 때<br>`+
-    `* 10%는 회사 기준(고정), 되돌리기 후보 상한 ${(RB*100).toFixed(0)}%는 화면에서 조절 가능`;
+    `* <b>10% 선 가격</b> = 정판가 × 90%. 여기까지는 정상판매로 인정되는 하한선`;
   document.getElementById('stypanel').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
@@ -428,7 +387,7 @@ document.getElementById('dls').onclick=()=>{
   const list=S.rows.filter(r=>names.has(S.brands[r[0]]) && (!cellFilter||S.cells[r[1]]===CF));
   const rows=[['스타일 단위 조치표'],
     [`시즌 ${SK}`,`재고 스냅샷 ${S.snap}`,`발주관리 ${S.ord_asof} 적재`,
-     `필터 ${CF}${Q?' / 검색:'+Q:''}`,`되돌리기 상한 ${(RB*100).toFixed(0)}%`],[],
+     `필터 ${CF}${Q?' / 검색:'+Q:''}`],[],
     ['브랜드','셀','아이템(MC)','스타일','스타일명','재고수량','정판가','현판가','인하율',
      '10%선가격','필요인상액','재고액(정판가)','재고액(원가)','소진율','예상매총율','시즌판매수량','구간']];
   list.forEach(r=>{
@@ -443,7 +402,6 @@ document.getElementById('dls').onclick=()=>{
     ['','정판가/현판가/원가 = 재고액 ÷ 재고수량 역산'],
     ['','예상매총율 = 1 − 원가 ÷ (현판가 ÷ 1.1) — 지금 현판가로 팔 때'],
     ['','정상판매 = 최판가 대비 할인 10% 이내 (마크다운+쿠폰+포인트+행사 합산) — 회사 기준'],
-    ['','되돌리기 후보 = 인하율 10% 초과 ~ '+(RB*100).toFixed(0)+'% 이하. 상한은 화면 설정값(임의)'],
     ['','소진율 = 시즌 누적 소진원가 ÷ (소진원가 + 현재 재고원가) — 회사 공식'],
     ['','매총율 = 1 − 원가 ÷ 순매출 — 회사 공식'],
     ['','자라 계열 제외']);
@@ -529,7 +487,6 @@ function render(){
 
   if(!S.styles){
     document.getElementById('dls').style.display='none';
-    document.getElementById('stybar').style.display='none';
   }
   document.getElementById('cards').innerHTML=S.cells.map(c=>{
     const r=calc(c);
