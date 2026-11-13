@@ -1,0 +1,68 @@
+{
+ "board": "discount-guide",
+ "stage": 6,
+ "unit": "개",
+ "asof": "2026-11-12",
+ "generated": "2026-11-13 23:04:11",
+ "source": "정판율 BI(sell_rate)·실매출(daily_sales) · 26FW · 목표 정판율 70% · 판매 진도 100% · 기준일 2026-11-12 · 자라 계열 제외",
+ "key": [
+  {
+   "name": "목표 달성 불가 브랜드",
+   "value": 14,
+   "unit": "개",
+   "text": "14개",
+   "better": "down"
+  },
+  {
+   "name": "작년보다 할인 줄일 브랜드",
+   "value": 46,
+   "unit": "개",
+   "text": "46개",
+   "better": "down"
+  },
+  {
+   "name": "작년보다 여유 있는 브랜드",
+   "value": 10,
+   "unit": "개",
+   "text": "10개",
+   "better": "up"
+  }
+ ],
+ "blocked": [
+  {
+   "what": "루나코어스(LUNA KORRS) — 목표 정판율 70% 달성 불가 · 여성",
+   "size": 12.97,
+   "unit": "억",
+   "size_text": "12.97억",
+   "deadline": null
+  },
+  {
+   "what": "블루독 — 목표 정판율 70% 달성 불가 · 아동",
+   "size": 11.82,
+   "unit": "억",
+   "size_text": "11.82억",
+   "deadline": null
+  },
+  {
+   "what": "래핑차일드 — 목표 정판율 70% 달성 불가 · 아동",
+   "size": 6.92,
+   "unit": "억",
+   "size_text": "6.92억",
+   "deadline": null
+  },
+  {
+   "what": "스텔라매카트니키즈(STELLAMCCA — 목표 정판율 70% 달성 불가 · 아동",
+   "size": 2.59,
+   "unit": "억",
+   "size_text": "2.59억",
+   "deadline": null
+  },
+  {
+   "what": "타미힐피거 — 목표 정판율 70% 달성 불가 · 남성·여성·잡화",
+   "size": 2.53,
+   "unit": "억",
+   "size_text": "2.53억",
+   "deadline": null
+  }
+ ]
+}

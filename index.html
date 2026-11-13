@@ -1,4 +1,9 @@
+<!doctype html>
+<html lang="ko">
+<head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>브랜드별 할인 가이드</title>
 <!-- 링크 미리보기(카톡/팀즈/슬랙) 한글 제목 -->
 <meta property="og:type" content="website">
@@ -11,126 +16,216 @@
 <meta name="twitter:title" content="브랜드별 할인 가이드">
 <meta name="twitter:description" content="정판율 방어를 위한 브랜드별 할인 레인지">
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:linear-gradient(180deg,#f6f3ed 0%,#efeae1 100%);
-  font-family:'Malgun Gothic','맑은 고딕',sans-serif;color:#2f3336;min-height:100vh}
-.wrap{max-width:1240px;margin:0 auto;padding:34px 24px 70px}
-h1{font-size:27px;margin:0 0 5px;color:#1a1d20;letter-spacing:-.4px;font-weight:bold}
-h1 .g{color:#b0954f;font-weight:normal}
-.sub{font-size:13px;color:#8a8579;margin-bottom:24px;letter-spacing:.2px}
-h2{font-size:17px;margin:30px 0 13px;color:#1a1d20;letter-spacing:-.2px;
-  padding-left:12px;border-left:3px solid #b0954f}
+/* picks-board.css — 재열님 공통 디자인 원본 그대로 (2026-11-03) */
+/* NC PICKS 판 공통 디자인 — 「상품 흐름 작업대」 컨셉 (2026-11-03)
+   각 모니터링판에 이 파일 하나를 연결하면 포털과 같은 색·글자·표·버튼이 된다.
+   사용법은 디자인컨셉-가이드.md §4. 값은 포털 시제품(style.css)과 같다. */
 
-.panel{background:#fffefb;border:1px solid #e4ded2;border-radius:11px;padding:19px 22px;margin-bottom:18px;
-  box-shadow:0 1px 2px rgba(60,50,30,.04), 0 6px 18px rgba(60,50,30,.05)}
-.ctl{display:flex;gap:32px;align-items:center;flex-wrap:wrap}
-.seg button{border:1px solid #d8d0c0;background:#fffefb;padding:8px 20px;font-size:13.5px;cursor:pointer;
-  font-family:inherit;color:#5d5a52;transition:.16s}
-.seg button:first-child{border-radius:6px 0 0 6px}
-.seg button:last-child{border-radius:0 6px 6px 0;border-left:0}
-.seg button.on{background:linear-gradient(180deg,#8a3543,#6d2734);color:#fff;border-color:#6d2734;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
-label.f{font-size:12.5px;color:#8a8579;display:block;margin-bottom:6px;font-weight:bold;letter-spacing:.3px}
-input[type=range]{width:205px;vertical-align:middle;accent-color:#7b2d3b}
-.val{font-size:20px;font-weight:bold;color:#7b2d3b;margin-left:10px;font-variant-numeric:tabular-nums}
-.hint{font-size:11.5px;color:#a09a8c;margin-top:5px}
+/* 1. 토큰 — 색·글자·간격. 판 코드에서는 색 값을 직접 쓰지 말고 이 변수만 쓴다 */
+:root {
+  --bg: #F3F3F1;          /* 바탕: 중립 회백(크림 아님) */
+  --paper: #FCFCFA;       /* 판 면 */
+  --ink: #141414;         /* 본문 글자 */
+  --ink-2: #555552;       /* 보조 글자 */
+  --ink-3: #666662;       /* 흐린 글자(출처·기준) — 대비 4.5 이상 */
+  --line: #DADAD5;        /* 괘선 */
+  --line-strong: #141414; /* 표 머리 아래 굵은 선 */
+  --hover: #ECECE8;
+  --accent: #B4531F;      /* 픽스 번트오렌지 — '지금 할 일' 한 곳에만 */
+  --accent-wash: #F6ECE5;
+  --accent-text: #8F4017;
+  --link: #3E5C76;        /* 슬레이트블루 — 링크·판 버튼 */
+  --up: #067647;          /* 좋아짐 */
+  --down: #B42318;        /* 나빠짐·멈춤 */
+  --focus: #3E5C76;
+  --fs-xs: 11px; --fs-s: 12px; --fs-m: 14px; --fs-l: 17px; --fs-xl: 22px; --fs-2xl: 28px;
+  --s1: 4px; --s2: 8px; --s3: 16px; --s5: 24px;
+  --font: "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --mono: Consolas, "SF Mono", ui-monospace, monospace;
+  --num: 600 1em/1.3 "PicksNum", var(--font);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111111; --paper: #181818; --ink: #EDEDEA; --ink-2: #B4B4AF; --ink-3: #9A9A95;
+    --line: #2E2E2C; --line-strong: #EDEDEA; --hover: #222220;
+    --accent: #D2703A; --accent-wash: #2A1D15; --accent-text: #E08A55; --link: #8FB0C8; --up: #47CD89; --down: #F97066; --focus: #8FB0C8;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111111; --paper: #181818; --ink: #EDEDEA; --ink-2: #B4B4AF; --ink-3: #9A9A95;
+  --line: #2E2E2C; --line-strong: #EDEDEA; --hover: #222220;
+  --accent: #D2703A; --accent-wash: #2A1D15; --accent-text: #E08A55; --link: #8FB0C8; --up: #47CD89; --down: #F97066; --focus: #8FB0C8;
+  color-scheme: dark;
+}
+/* 숫자·기호에만 고정폭 글꼴(내려받기 없음, 한글은 본문 글꼴) */
+@font-face { font-family: "PicksNum"; src: local("Consolas"), local("SF Mono"), local("Menlo"), local("DejaVu Sans Mono"); unicode-range: U+0025, U+002B-002F, U+0030-003A; font-weight: 400 700; }
 
-.rule{background:linear-gradient(135deg,#fdfaf4,#f8f2e6);border:1px solid #e8dcc0;
-  border-left:4px solid #b0954f;border-radius:9px;padding:15px 19px;font-size:13.5px;
-  line-height:1.85;margin-bottom:20px;color:#4a463d;
-  box-shadow:0 1px 2px rgba(60,50,30,.04), 0 4px 14px rgba(60,50,30,.04)}
-.rule b{color:#7b2d3b}
+/* 2. 바탕 */
+.pk { margin: 0; background: var(--bg); color: var(--ink); font: 400 var(--fs-m)/1.5 var(--font); font-variant-numeric: tabular-nums; word-break: keep-all; overflow-wrap: break-word; }
+.pk *, .pk *::before, .pk *::after { box-sizing: border-box; }
+.pk :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.pk a:not([class]) { color: inherit; }
+.pk-muted { color: var(--ink-3); font-weight: 400; }
 
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:17px;margin-bottom:8px}
-.card{background:linear-gradient(180deg,#fffefb 0%,#fbf8f2 100%);
-  border:1px solid #e4ded2;border-radius:13px;padding:18px 19px 15px;text-align:center;
-  box-shadow:0 1px 2px rgba(60,50,30,.05), 0 5px 14px rgba(60,50,30,.07), 0 16px 38px rgba(60,50,30,.06);
-  transition:transform .22s cubic-bezier(.2,.7,.3,1), box-shadow .22s;position:relative;overflow:hidden}
-.card:before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,#b0954f,#d4bd80,#b0954f)}
-.card:hover{transform:translateY(-4px);
-  box-shadow:0 2px 4px rgba(60,50,30,.06), 0 10px 24px rgba(60,50,30,.10), 0 26px 56px rgba(60,50,30,.09)}
-.card h3{margin:0 0 12px;font-size:15.5px;color:#1a1d20;text-align:left;letter-spacing:-.2px;
-  padding-bottom:9px;border-bottom:1px solid #ece5d8}
-.rng{font-size:31px;font-weight:bold;color:#7b2d3b;font-variant-numeric:tabular-nums;line-height:1.15;
-  text-shadow:0 1px 0 rgba(255,255,255,.7)}
-.rlab{font-size:11.5px;color:#a09a8c;margin:6px 0 13px;letter-spacing:.3px}
-.row{display:flex;justify-content:space-between;font-size:12.5px;padding:4.5px 0;
-  border-bottom:1px solid #f2ede2;text-align:left;color:#6b6659}
-.row:last-child{border:0}
-.row b{font-variant-numeric:tabular-nums;color:#2f3336}
+/* 3. 판 머리 — 판 이름 · 이 판에서 하는 일 · 숫자 기준 시각 */
+.pk-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--s2) var(--s3); padding: var(--s3) var(--s5); background: var(--paper); border-bottom: 1px solid var(--line); }
+.pk-head .stage { font: 700 var(--fs-s) var(--mono); color: var(--link); }
+.pk-head h1 { margin: 0; font-size: var(--fs-xl); letter-spacing: -.02em; }
+.pk-head p { margin: 0; color: var(--ink-2); }
+.pk-head .asof { margin-left: auto; font-size: var(--fs-s); color: var(--ink-3); }
 
-.tools{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
-#q{font-size:14px;padding:10px 14px;border:1px solid #d8d0c0;border-radius:8px;width:270px;
-  font-family:inherit;background:#fffefb;color:#2f3336;
-  box-shadow:inset 0 1px 3px rgba(60,50,30,.05)}
-#q:focus{outline:0;border-color:#b0954f;box-shadow:inset 0 1px 3px rgba(60,50,30,.05),0 0 0 3px rgba(176,149,79,.15)}
-.chip{border:1px solid #d8d0c0;background:#fffefb;color:#6b6659;padding:7px 15px;border-radius:20px;
-  font-size:12.5px;cursor:pointer;font-family:inherit;transition:.16s}
-.chip.on{background:linear-gradient(180deg,#8a3543,#6d2734);color:#fff;border-color:#6d2734}
-.cnt{font-size:12px;color:#a09a8c;margin-left:auto}
+/* 4. 읽는 순서 번호와 구획 제목 — 1 → 2 → 3 */
+.pk-sec { padding: var(--s5) var(--s5) 0; }
+.pk-sec > h2 { display: flex; align-items: baseline; gap: var(--s2); margin: 0 0 var(--s2); font-size: var(--fs-xl); letter-spacing: -.01em; }
+.pk-sec > h2 small { font-size: var(--fs-s); font-weight: 400; color: var(--ink-3); }
+.pk-step { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--paper); font-size: var(--fs-m); font-weight: 700; flex: none; align-self: center; }
 
-.tbox{background:#fffefb;border:1px solid #e4ded2;border-radius:11px;overflow-x:auto;
-  box-shadow:0 1px 2px rgba(60,50,30,.04), 0 6px 18px rgba(60,50,30,.05)}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-th{background:linear-gradient(180deg,#f8f4ec,#f2ece0);border-bottom:1.5px solid #ddd4c2;
-  padding:11px 8px;text-align:right;font-weight:bold;color:#5d5a52;white-space:nowrap;letter-spacing:.2px}
-th:first-child,th:nth-child(2){text-align:left}
-td{border-bottom:1px solid #f2ede2;padding:8px;text-align:right;font-variant-numeric:tabular-nums;color:#4a463d}
-td:first-child,td:nth-child(2){text-align:left}
-td:first-child{font-weight:bold;color:#2f3336}
-tbody tr{transition:.12s}
-tbody tr:hover td{background:#faf6ee}
-.big{font-size:14.5px;font-weight:bold;color:#7b2d3b}
-.bad{color:#a32232}
-.dn{color:#a32232;font-weight:bold}
-.up{color:#5d7a4c;font-weight:bold}
-.src{font-size:11px;color:#a09a8c}
-.empty{padding:38px;text-align:center;color:#a09a8c;font-size:13.5px}
+/* 5. 지금 볼 숫자 — 판마다 최대 3개, 큰 숫자 + 출처 한 줄 */
+.pk-key { display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.pk-key > div { flex: 1 1 200px; padding: var(--s3) var(--s3) var(--s3) 0; }
+.pk-key > div + div { padding-left: var(--s3); border-left: 1px solid var(--line); }
+.pk-key dt { color: var(--ink-2); }
+.pk-key dd { margin: var(--s1) 0 0; font: var(--num); font-size: var(--fs-2xl); letter-spacing: -.02em; }
+.pk-key .src { display: block; font-size: var(--fs-xs); color: var(--ink-3); }
+.pk-key .bad { color: var(--down); } .pk-key .good { color: var(--up); }
 
-.warn{background:linear-gradient(135deg,#fdfaf4,#f9f3e4);border:1px solid #e8dcc0;
-  border-left:4px solid #b0954f;border-radius:9px;padding:14px 18px;font-size:12.5px;
-  line-height:1.85;margin:18px 0;color:#4a463d;
-  box-shadow:0 1px 2px rgba(60,50,30,.04), 0 4px 14px rgba(60,50,30,.04)}
-.warn b{color:#7b2d3b}
-.note{font-size:12px;color:#8a8579;line-height:1.9;margin-top:14px}
-.note b{color:#7b2d3b}
+/* 6. 표 — 카드 대신 괘선. 숫자 칸은 오른쪽 정렬 + 고정폭 */
+.pk-table { width: 100%; border-collapse: collapse; }
+.pk-table th { text-align: left; font-weight: 500; font-size: var(--fs-s); color: var(--ink-2); padding: var(--s2) var(--s3); border-bottom: 1px solid var(--line-strong); white-space: nowrap; }
+.pk-table td { padding: var(--s2) var(--s3); height: 48px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.pk-table .r { text-align: right; font: var(--num); }
+.pk-table .main { font-size: var(--fs-l); font-weight: 600; }
+.pk-table .src { display: block; font: 400 var(--fs-xs)/1.4 var(--font); color: var(--ink-3); }
+.pk-table tbody tr:hover td { background: var(--hover); }
 
-.std{background:linear-gradient(180deg,#fffefb 0%,#fbf8f2 100%);border:1px solid #e4ded2;
-  border-radius:13px;padding:6px 22px 14px;
-  box-shadow:0 1px 2px rgba(60,50,30,.05),0 5px 14px rgba(60,50,30,.06),0 16px 38px rgba(60,50,30,.05);
-  position:relative;overflow:hidden}
-.std:before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,#b0954f,#d4bd80,#b0954f)}
-.sr{display:flex;gap:13px;align-items:flex-start;padding:11px 0;
-  border-bottom:1px solid #f2ede2;font-size:13.5px;line-height:1.75;color:#4a463d}
-.sr:last-child{border:0}
-.sn{flex:0 0 24px;height:24px;border-radius:50%;background:linear-gradient(180deg,#8a3543,#6d2734);
-  color:#fff;font-size:12px;font-weight:bold;display:flex;align-items:center;justify-content:center;
-  margin-top:2px;box-shadow:0 1px 3px rgba(109,39,52,.3)}
-.sr b{color:#7b2d3b}
+/* 7. 상태 — 멈춤=빨강 띠, 주의=진한 회색 띠. 칸 전체를 색칠하지 않는다 */
+.pk-band-stop { box-shadow: inset 0 4px 0 var(--down); }
+.pk-band-warn { box-shadow: inset 0 4px 0 var(--ink-2); }
+.pk-up-bad { color: var(--down); } .pk-up-good { color: var(--up); }
 
-.dl{border:1px solid #b0954f;background:linear-gradient(180deg,#fdfaf4,#f5edda);color:#7a6428;
-  padding:8px 17px;border-radius:8px;font-size:12.5px;cursor:pointer;font-family:inherit;font-weight:bold;
-  box-shadow:0 1px 2px rgba(60,50,30,.06),0 3px 8px rgba(60,50,30,.06);transition:.16s;letter-spacing:.2px}
-.dl:hover{background:linear-gradient(180deg,#fffdf7,#f8f2e2);
-  box-shadow:0 2px 4px rgba(60,50,30,.08),0 6px 14px rgba(60,50,30,.09);transform:translateY(-1px)}
-.dl:active{transform:translateY(0)}
+/* 8. 버튼 — 누르는 곳은 테두리 버튼 '이름 →', 화면당 꽉 찬 버튼은 하나 */
+.pk-open { display: inline-block; padding: var(--s1) var(--s3); border: 1px solid var(--link); border-radius: 6px; color: var(--link); font-weight: 700; text-decoration: none; white-space: nowrap; }
+.pk-open:hover { background: var(--link); color: var(--paper); }
+.pk-btn { display: inline-block; padding: var(--s2) var(--s3); border-radius: 6px; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font-weight: 700; text-decoration: none; white-space: nowrap; cursor: pointer; }
 
-.dl.gold{border-color:#8a3543;background:linear-gradient(180deg,#8a3543,#6d2734);color:#fff}
-.dl.gold:hover{background:linear-gradient(180deg,#96404e,#78303d)}
+/* 9. 지금 할 일 한 줄 — 오렌지는 여기 한 곳만 */
+.pk-now { display: flex; align-items: center; gap: var(--s5); padding: var(--s3) var(--s5); background: var(--accent-wash); box-shadow: inset 4px 0 0 var(--accent); }
+.pk-now b { font-size: var(--fs-l); color: var(--accent-text); white-space: nowrap; }
+.pk-now p { margin: 0; flex: 1; font-size: var(--fs-xl); font-weight: 700; letter-spacing: -.02em; }
+
+/* 10. 빈 화면·오류 — 무슨 일 + 다음 행동 */
+.pk-empty { padding: 48px var(--s5); max-width: 560px; }
+.pk-empty h2 { margin: 0 0 var(--s2); font-size: var(--fs-xl); }
+.pk-empty p { margin: 0 0 var(--s3); color: var(--ink-2); }
+
+
+/* ── 매장판 기존 화면 → 공통 디자인 대응 (2026-11-13) — 가이드 §4-② 「기능·계산은 그대로, 화면 구조와 클래스·색 변수만」 ── */
+:root{--ink2:var(--ink-2);--mut:var(--ink-3);--srf:var(--paper);--rd:var(--down);--am:var(--ink-2);--gn:var(--ink-2);--bl:var(--link)}
+body.pk{padding-bottom:48px}
+.pk-key dd small{font-size:var(--fs-m);font-weight:400;margin-left:2px}
+.pk-sec .scx{overflow-x:auto;-webkit-overflow-scrolling:touch}
+/* 구획 — 카드·그림자 없이 괘선 (원칙 6) */
+.tabs{display:flex;gap:var(--s2);flex-wrap:wrap;align-items:center;padding:var(--s3) var(--s5) 0;margin:0}
+.tabsec{padding:var(--s5) var(--s5) 0}
+.tabsec.pkfirst{padding:0}
+.tabsec>h2{display:flex;align-items:baseline;flex-wrap:wrap;gap:var(--s2);margin:0 0 var(--s2);font-size:var(--fs-xl);letter-spacing:-.01em}
+.pk h3{font-size:var(--fs-l);margin:var(--s3) 0 var(--s2)}
+.hint,.leg,.note{font-size:var(--fs-s);color:var(--ink-3);line-height:1.6;margin:0 0 var(--s2)}
+.s2{font-size:var(--fs-s);color:var(--ink-3);font-weight:400}
+.wshd{font-size:var(--fs-l);font-weight:700;margin:var(--s3) 0 var(--s2)}
+/* 표 = .pk-table 모양 — 괘선, 숫자 칸 오른쪽 정렬 + 고정폭 (원칙 2·§4-② 4) */
+.pk table{border-collapse:collapse;font-size:var(--fs-m)}   /* 표 바탕 없음 = .pk-table 과 같게 */
+.pk th{text-align:left;font-weight:500;font-size:var(--fs-s);color:var(--ink-2);padding:var(--s2) var(--s3);border-bottom:1px solid var(--line-strong);white-space:nowrap}
+.pk td{padding:var(--s2) var(--s3);border-bottom:1px solid var(--line);vertical-align:middle;text-align:left}
+.pk td.n{text-align:right;font:var(--num)}
+.pk td.l{font-weight:600;white-space:nowrap}
+.pk tr:hover>td{background:var(--hover)}
+.pk td.cn{cursor:zoom-in;text-decoration:underline dotted var(--ink-3);text-underline-offset:3px}
+.pk td.cn:hover{outline:2px solid var(--focus);outline-offset:-2px}
+/* 상태 — 칸 전체를 색칠하지 않고 4px 띠 (원칙 4): 빨강=멈춤(부족) · 진한 회색=주의(임박) · 슬레이트=과잉 */
+/*   (기존 판의 상태 클래스 r·y·b — 공통 .pk-table 의 숫자 칸 .r 과 이름이 겹쳐 .pk-table 밖에서만) */
+.pk table:not(.pk-table) td.r{color:var(--down);font-weight:700;box-shadow:inset 0 4px 0 var(--down)}
+.pk table:not(.pk-table) td.y{box-shadow:inset 0 4px 0 var(--ink-2)}
+.pk table:not(.pk-table) td.b{box-shadow:inset 0 4px 0 var(--link)}
+.big{font-size:var(--fs-l);font-weight:600}
+.pill{font-size:var(--fs-s);font-weight:700;white-space:nowrap}
+.p-r{color:var(--down)} .p-a{color:var(--ink-2)} .p-g{color:var(--ink-3);font-weight:400} .p-k{color:var(--ink-2);font-weight:600}
+.cd{display:none}   /* 셀 색 점 — 색은 뜻이 있을 때만(원칙 4) */
+.zd{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}  /* 강서 도면 조닝 색(도면과 짝) */
+/* 누르는 곳 = 테두리 버튼 (원칙 5) — 꽉 찬 버튼은 '지금 할 일' 하나 */
+.sbtn,.cbtn,.szb,.szt{display:inline-block;padding:var(--s1) var(--s3);border:1px solid var(--link);border-radius:6px;background:var(--paper);color:var(--link);font:700 var(--fs-m)/1.5 var(--font);cursor:pointer;white-space:nowrap}
+.sbtn:hover,.cbtn:hover,.szb:hover,.szt:hover{background:var(--link);color:var(--paper)}
+.sbtn.on,.cbtn.on,.szt.on{border-color:var(--ink);color:var(--ink);background:var(--paper);box-shadow:inset 0 -3px 0 var(--ink)}
+.szb{font-size:var(--fs-s);padding:0 var(--s2);margin-left:6px}
+.subbar,.catbar{display:flex;gap:var(--s2);flex-wrap:wrap;margin:0 0 var(--s3)}
+.pk select{font:600 var(--fs-m) var(--font);padding:var(--s1) var(--s2);border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink)}
+button.pk-open{font:700 var(--fs-m)/1.5 var(--font);background:var(--paper);cursor:pointer}
+/* 팝업 — 같은 바탕·괘선 (사이즈 팝업은 공용 모듈이라 여기서 덮어씀) */
+#szpop>div,#pop>div{background:var(--paper)!important;color:var(--ink);border:1px solid var(--line);border-radius:6px!important}
+#szpop-title,#pop-title{color:var(--ink)!important}
+#szpop-x,#pop-x{color:var(--ink-3)!important}
+#szpop th{color:var(--ink-2)!important;border-bottom:1px solid var(--line-strong)!important}
+#szpop td{border-bottom:1px solid var(--line)!important}
+@media(max-width:640px){.pk-head,.pk-sec,.tabsec,.tabs{padding-left:var(--s3);padding-right:var(--s3)}.pk-now{flex-wrap:wrap;gap:var(--s2);padding:var(--s3)}.pk-now p{font-size:var(--fs-l);flex:1 1 100%}.pk-key dd{font-size:var(--fs-xl)}.pk-key>div{flex-basis:140px}}
+
+/* ── 브랜드 할인 가이드 추가 (2026-11-13) — 크림 바탕·금색 띠·버건디 그라데이션·카드 → 괘선·잉크·변수 ── */
+.pk-now[hidden]{display:none}
+.pk-sec>h2{flex-wrap:wrap} .pk-sec>h2>span{white-space:nowrap}
+button.pk-btn{font:700 var(--fs-m)/1.5 var(--font)}
+.wrap{padding:0 var(--s5)}
+.wrap>h2{font-size:var(--fs-l);margin:var(--s5) 0 var(--s2);padding:0;border:0}
+.rule{margin:var(--s3) 0;color:var(--ink-2);font-size:var(--fs-s);line-height:1.8}
+.rule b,.warn b,.note b,.sr b{color:var(--ink)}
+.panel{padding:var(--s3) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:var(--s3)}
+.ctl{display:flex;gap:var(--s5);align-items:center;flex-wrap:wrap}
+.seg{display:inline-flex;gap:var(--s2);flex-wrap:wrap}
+.seg button,.chip,.dl{display:inline-block;padding:var(--s1) var(--s3);border:1px solid var(--link);border-radius:6px;background:var(--paper);color:var(--link);font:700 var(--fs-m)/1.5 var(--font);cursor:pointer;white-space:nowrap}
+.seg button:hover,.chip:hover,.dl:hover{background:var(--link);color:var(--paper)}
+.seg button.on,.chip.on{border-color:var(--ink);color:var(--ink);background:var(--paper);box-shadow:inset 0 -3px 0 var(--ink)}
+label.f{font-size:var(--fs-s);color:var(--ink-2);display:block;margin-bottom:var(--s1);font-weight:600}
+input[type=range]{width:205px;vertical-align:middle;accent-color:var(--link)}
+.val{font:var(--num);font-size:var(--fs-xl);margin-left:var(--s2)}
+.ctl .hint{margin:var(--s1) 0 0}
+.tools{display:flex;gap:var(--s2);align-items:center;flex-wrap:wrap;margin-bottom:var(--s3)}
+#q{font:400 var(--fs-m)/1.5 var(--font);padding:var(--s1) var(--s2);border:1px solid var(--line);border-radius:6px;width:270px;max-width:100%;background:var(--paper);color:var(--ink);min-height:34px}
+#chips{display:inline-flex;gap:var(--s2);flex-wrap:wrap}
+.cnt{font-size:var(--fs-s);color:var(--ink-3);margin-left:auto}
+.tbox,#cards{overflow-x:auto;-webkit-overflow-scrolling:touch}
+/* 표 — 숫자 칸 오른쪽(첫 두 칸만 왼쪽, 판 원래 배치) */
+.pk table:not(.pk-table){width:100%}
+.pk table:not(.pk-table) th,.pk table:not(.pk-table) td{padding:var(--s2)}
+.pk table:not(.pk-table) th{text-align:right;background:var(--paper)}
+.pk table:not(.pk-table) th:first-child,.pk table:not(.pk-table) th:nth-child(2){text-align:left}
+.pk table:not(.pk-table) td{text-align:right;font-variant-numeric:tabular-nums}
+.pk table:not(.pk-table) td:first-child,.pk table:not(.pk-table) td:nth-child(2){text-align:left}
+.pk table:not(.pk-table) td:first-child{font-weight:600}
+.bad,.dn{color:var(--down)} .dn{font-weight:700}
+.up{color:var(--up);font-weight:700}   /* 여유 = 좋아짐 */
+.src{font-size:var(--fs-xs);color:var(--ink-3)}
+.empty{padding:38px;text-align:center;color:var(--ink-2)}
+.warn{margin:var(--s5) 0;padding:var(--s3) 0 0;box-shadow:inset 0 4px 0 var(--ink-2);font-size:var(--fs-s);line-height:1.8;color:var(--ink-2)}   /* 주의 = 회색 4px 띠 */
+.note{line-height:1.9;margin-top:var(--s3)}
+.std{border-top:1px solid var(--line)}
+.sr{display:flex;gap:var(--s3);align-items:flex-start;padding:var(--s2) 0;border-bottom:1px solid var(--line);line-height:1.75;color:var(--ink-2)}
+.sn{flex:0 0 24px;height:24px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:var(--fs-s);font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
 tbody tr.clk{cursor:pointer}
-tbody tr.sel td{background:#f6ece0!important;box-shadow:inset 3px 0 0 #b0954f}
-.bd{display:inline-block;padding:2px 9px;border-radius:11px;font-size:11px;font-weight:bold;white-space:nowrap}
-.bd-ok{background:#eef3ea;color:#4a6b3c}
-.bd-ov{background:#fdf0f1;color:#a32232}
-.bd-dp{background:#f3eef0;color:#6b5560}
-.bd-up{background:#eef1f6;color:#41567a}
-.rbn{color:#8a6216;font-weight:bold}
+.pk tbody tr.sel td{background:var(--hover)}
+.pk tbody tr.sel td:first-child{box-shadow:inset 4px 0 0 var(--ink)}
+.bd{font-size:var(--fs-s);font-weight:700;white-space:nowrap}   /* 구간 꼬리표 — 색 칠 없이 글자만: 할인판매=빨강 */
+.bd-ok{color:var(--ink-3)} .bd-ov{color:var(--down)} .bd-dp,.bd-up{color:var(--ink-2)}
+.rbn{color:var(--ink);font-weight:700}
+@media(max-width:640px){.wrap{padding:0 var(--s3)} input[type=range]{width:150px} .cnt{margin-left:0} .ctl{gap:var(--s3)}}
 </style>
+</head>
+<body class="pk">
+<header class="pk-head"><span class="stage">06 가격·소진</span><h1>브랜드 할인 가이드</h1><p>브랜드별 허용 할인폭, 정판율 방어 · MD 판매계획용</p><span class="asof" id="asof"></span></header>
+<section class="pk-now" id="pkNow" aria-label="지금 할 일" hidden></section>
+<section class="pk-sec" aria-label="지금 볼 숫자"><h2><span class="pk-step">1</span> 지금 볼 숫자 <small>판마다 최대 3개 · 아래 브랜드별 표(셀 합산)의 브랜드 수</small></h2><dl class="pk-key" id="pkKey"></dl></section>
+<section class="pk-sec" aria-label="막힌 곳"><h2><span class="pk-step">2</span> <span id="pkBlkT">막힌 곳</span> <small id="pkBlkS"></small></h2><div id="pkBlk"></div></section>
+<section class="pk-sec" id="detail" aria-label="상세"><h2><span class="pk-step">3</span> 상세 <small>시즌·목표 정판율·판매 진도를 바꾸면 1·2 구획도 같이 다시 계산돼요</small></h2></section>
 <div class="wrap">
-<h1>브랜드별 할인 가이드 <span class="g">/ MD 판매계획용</span></h1>
-<div class="sub" id="asof"></div>
 
 <div class="rule">
 <b>읽는 법</b> &mdash; "아디다스 4.6~10.5%" 는 <b>앞으로 팔 물량 전체의 가중평균 할인율</b>이
@@ -150,14 +245,14 @@ tbody tr.sel td{background:#f6ece0!important;box-shadow:inset 3px 0 0 #b0954f}
 </div>
 
 <h2>셀별</h2>
-<div class="cards" id="cards"></div>
+<div id="cards"></div>
 
-<h2>브랜드별</h2>
+<h2 id="brandsec">브랜드별</h2>
 <div class="tools">
   <input type="text" id="q" placeholder="브랜드 검색 (예: 아디다스)" autocomplete="off">
   <span id="chips"></span>
-  <button id="dl" class="dl">요약 다운로드</button>
-  <button id="dls" class="dl gold">스타일 상세 다운로드</button>
+  <button id="dl" class="dl">요약 내려받기 →</button>
+  <button id="dls" class="dl">스타일 상세 내려받기 →</button>
   <span class="cnt" id="cnt"></span>
 </div>
 
@@ -266,7 +361,7 @@ function renderTable(){
     `${list.length} / ${src.length} 브랜드` + (CF==='전체' ? ' · 셀 합산' : '');
   const tb=document.getElementById('tb');
   if(!list.length){
-    tb.innerHTML=`<tr><td colspan="9" class="empty">검색 결과가 없습니다</td></tr>`; return;
+    tb.innerHTML=`<tr><td colspan="9" class="empty">찾는 브랜드가 없어요. 검색어를 지우거나 셀 단추를 바꿔 보세요.</td></tr>`; return;
   }
   tb.innerHTML=list.map(b=>{
     const r=calc(b), d0=b.depth['0.0'];
@@ -476,6 +571,53 @@ document.getElementById('dl').onclick=()=>{
   setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();}, 0);
 };
 
+/* ── 지금 할 일 · 1 지금 볼 숫자 · 2 막힌 곳 (2026-11-13 공통 디자인) ──
+   재료 = 브랜드별 표(셀 합산)의 '달성 불가'(빨강)·'▼ 줄일 폭'(빨강) 그대로, 지금 고른 시즌·목표·진도로.
+   급한 순 = 달성 불가(입고 큰 순) → 줄일 폭 큰 순. make_discount_range.py pk_summary() 와 같은 규칙(기본값일 때 포털 요약과 같음) */
+let PKL=[];
+function pkCalc(){
+  const S=D[SK], L=[]; let nNo=0,nCut=0,nOk=0,nFree=0;
+  S.brands_all.forEach((b,i)=>{const r=calc(b);
+    if(!r.reach){nNo++;L.push({b:b,r:r,k:0,gap:null,i:i});return;}
+    if(r.done){nFree++;return;}
+    if(b.ly_rate===null) return;
+    const g=b.ly_rate-r.lo;
+    if(g>0){nCut++;L.push({b:b,r:r,k:1,gap:g,i:i});} else nOk++;
+  });
+  L.sort((x,y)=>(x.k-y.k)||(x.k===0?(y.b.in_amt-x.b.in_amt):(y.gap-x.gap))||(x.i-y.i));
+  return {L:L,nNo:nNo,nCut:nCut,nOk:nOk,nFree:nFree,n:S.brands_all.length};
+}
+function pkWhat(x){return x.k===0 ? `${x.b.name} — 목표 정판율 ${TG}% 달성 불가` : `${x.b.name} — 작년보다 할인 ▼${(x.gap*100).toFixed(1)}%p 줄여야`;}
+function renderPk(){
+  const S=D[SK], P=pkCalc(), top=P.L.slice(0,5); PKL=top;
+  const set=`${SK} · 목표 정판율 ${TG}% · 판매 진도 ${(MULT*100).toFixed(0)}% · 기준일 ${S.asof}`;
+  document.getElementById('pkKey').innerHTML=[
+    ['목표 달성 불가 브랜드',P.nNo,P.nNo?' class="bad"':'',`전체 ${P.n}개(셀 합산) 중 · ${set}`],
+    ['작년보다 할인 줄일 브랜드',P.nCut,'',`허용 하한이 작년 실제 평균할인율보다 낮음 · ${set}`],
+    ['작년보다 여유 있는 브랜드',P.nOk,'',`이미 목표를 넘은 '제한 없음' ${P.nFree}개는 빼고 · ${set}`]
+  ].map(k=>`<div><dt>${k[0]}</dt><dd${k[2]}>${k[1]}<small>개</small></dd><span class="src">${k[3]}</span></div>`).join('');
+  const now=document.getElementById('pkNow');
+  if(top.length){const x=top[0];
+    now.innerHTML=`<b>지금 할 일</b><p>${pkWhat(x)} · 입고 ${억(x.b.in_amt)}억</p><button type="button" class="pk-btn" onclick="pkGo(0)">브랜드 표 보기 →</button>`;
+    now.hidden=false;}
+  else{now.innerHTML='';now.hidden=true;}
+  document.getElementById('pkBlkT').textContent=`막힌 곳 ${top.length}건`;
+  document.getElementById('pkBlkS').textContent=P.L.length?`달성 불가·할인 줄일 브랜드 ${P.L.length}개 중 급한 순(달성 불가 입고 큰 순 → 줄일 폭 큰 순) · 버튼을 누르면 브랜드 표로`:'';
+  const box=document.getElementById('pkBlk');
+  if(!top.length){box.innerHTML='<section class="pk-empty"><h2>지금 설정으로는 막힌 브랜드가 없어요.</h2><p>모든 브랜드가 목표 정판율을 지킬 수 있고, 작년보다 할인을 줄이지 않아도 돼요. 목표나 판매 진도를 바꾸면 다시 계산돼요.</p></section>';return;}
+  box.innerHTML='<div class="scx"><table class="pk-table"><thead><tr><th>순</th><th>무엇 · 기준</th><th class="r">입고</th><th class="r">작년 대비</th><th></th></tr></thead><tbody>'+
+    top.map((x,i)=>`<tr class="${x.k===0?'pk-band-stop':'pk-band-warn'}"><td>${i+1}</td>`+
+      `<td><span class="main">${pkWhat(x)}</span><span class="src">${x.b.cell} · 현재 정판율 ${pc(x.b.normal/x.b.in_amt)} · 작년 실제 평균할인율 ${x.b.ly_rate===null?'―':pc(x.b.ly_rate)}${x.k===1?` · 허용 평균 할인율 ${rngTxt(x.r)}`:''} · ${set}</span></td>`+
+      `<td class="r main">${억(x.b.in_amt)}억</td><td class="r">${x.k===0?'―':`<span class="pk-up-bad">▼ ${(x.gap*100).toFixed(1)}%p</span>`}</td>`+
+      `<td><button type="button" class="pk-open" onclick="pkGo(${i})">브랜드 표 →</button></td></tr>`).join('')+
+    '</tbody></table></div>'+(P.L.length>top.length?`<p class="pk-muted">나머지 ${P.L.length-top.length}개는 3 상세 · 브랜드별 표의 빨강 글자(달성 불가·▼ 줄일 폭)에 있어요.</p>`:'');
+}
+function pkGo(i){   /* 지금 할 일·막힌 곳 버튼 → 브랜드별 표에서 그 브랜드만 */
+  const x=PKL[i]; if(!x) return;
+  CF='전체'; q.value=x.b.name; Q=x.b.name.toLowerCase(); renderTable();
+  document.getElementById('brandsec').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
 function render(){
   [...seg.children].forEach(b=>b.classList.toggle('on',b.dataset.k===SK));
   document.getElementById('tgv').textContent=TG+'%';
@@ -483,22 +625,22 @@ function render(){
   const S=D[SK];
   document.getElementById('pghint').textContent=`작년(${S.ly_name}) 진도 대비 배율`;
   document.getElementById('asof').textContent=
-    `${SK} · 기준일 ${S.asof} · 자라 계열 제외 · 작년 비교 = ${S.ly_name}`;
+    `숫자 기준: ${SK} · 기준일 ${S.asof} · 자라 계열 제외 · 작년 비교 = ${S.ly_name}`;
 
   if(!S.styles){
     document.getElementById('dls').style.display='none';
   }
-  document.getElementById('cards').innerHTML=S.cells.map(c=>{
+  document.getElementById('cards').innerHTML=   // 셀 카드 4장 → 표 (같은 값, 2026-11-13 공통 디자인)
+    '<table><thead><tr><th>셀</th><th>허용 평균 할인율</th><th>입고</th><th>현재 정판율</th><th>작년 실제 할인율</th><th>정상판매 필요 비중</th></tr></thead><tbody>'+
+    S.cells.map(c=>{
     const r=calc(c);
-    return `<div class="card"><h3>${c.name}</h3>
-      <div class="rng ${r.reach?'':'bad'}">${rngTxt(r)}</div>
-      <div class="rlab">허용 평균 할인율</div>
-      <div class="row"><span>입고</span><b>${억(c.in_amt)}억</b></div>
-      <div class="row"><span>현재 정판율</span><b>${pc(c.normal/c.in_amt)}</b></div>
-      <div class="row"><span>작년 실제 할인율</span><b>${c.ly_rate===null?'―':pc(c.ly_rate)}</b></div>
-      <div class="row"><span>정상판매 필요 비중</span><b>${r.reach&&!r.done?pc(r.n):'―'}</b></div>
-    </div>`}).join('');
+    return `<tr><td>${c.name}</td><td class="big ${r.reach?'':'bad'}">${rngTxt(r)}</td><td>${억(c.in_amt)}억</td>
+      <td>${pc(c.normal/c.in_amt)}</td><td>${c.ly_rate===null?'―':pc(c.ly_rate)}</td><td>${r.reach&&!r.done?pc(r.n):'―'}</td></tr>`}).join('')+
+    '</tbody></table>';
+  renderPk();
   renderTable();
 }
 render();
 </script>
+</body>
+</html>
