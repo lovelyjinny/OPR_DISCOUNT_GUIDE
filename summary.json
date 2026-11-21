@@ -2,29 +2,29 @@
  "board": "discount-guide",
  "stage": 6,
  "unit": "개",
- "asof": "2026-11-19",
- "generated": "2026-11-20 09:01:05",
- "source": "정판율 BI(sell_rate)·실매출(daily_sales) · 26FW · 목표 정판율 70% · 판매 진도 100% · 기준일 2026-11-19 · 자라 계열 제외",
+ "asof": "2026-11-20",
+ "generated": "2026-11-21 09:01:16",
+ "source": "정판율 BI(sell_rate)·실매출(daily_sales) · 26FW · 목표 정판율 70% · 판매 진도 100% · 기준일 2026-11-20 · 자라 계열 제외",
  "key": [
   {
    "name": "목표 달성 불가 브랜드",
-   "value": 14,
+   "value": 13,
    "unit": "개",
-   "text": "14개",
+   "text": "13개",
    "better": "down"
   },
   {
    "name": "작년보다 할인 줄일 브랜드",
-   "value": 47,
+   "value": 48,
    "unit": "개",
-   "text": "47개",
+   "text": "48개",
    "better": "down"
   },
   {
    "name": "작년보다 여유 있는 브랜드",
-   "value": 10,
+   "value": 9,
    "unit": "개",
-   "text": "10개",
+   "text": "9개",
    "better": "up"
   }
  ],
